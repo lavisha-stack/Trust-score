@@ -1,1 +1,4 @@
+git init && git add . && git commit -m "TrustScore prototype"
+git remote add origin https://github.com/<your-username>/<repo-name>.git
+git branch -M main && git push -u origin main
 # Trust-score
