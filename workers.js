@@ -1,0 +1,93 @@
+/**
+ * Synthetic worker records for the demo. Not scraped, not real
+ * platform data — clearly labeled as synthetic throughout the UI.
+ * Deterministic: same worker always produces the same TrustScore.
+ */
+const WORKERS = [
+  {
+    id: "W-1001",
+    name: "Rahul Kumar",
+    tag: "Strong worker",
+    platform: "Synthetic Delivery Platform",
+    monthlyIncome: 28000,
+    signals: {
+      workConsistency: 92,
+      platformRating: 4.8,
+      completionRate: 96,
+      earningsVolatility: 0.15,
+      tenureMonths: 18,
+      paymentReliability: 92,
+      cancellationRate: 4,
+      upiRegularity: 90,
+      savingsBehaviour: 75,
+      incomeDiversification: 18,
+      workAvailability: 88,
+      vehicleAsset: "financed",
+    },
+  },
+  {
+    id: "W-1002",
+    name: "Priya Nair",
+    tag: "Balanced worker",
+    platform: "Synthetic Delivery Platform",
+    monthlyIncome: 22000,
+    signals: {
+      workConsistency: 78,
+      platformRating: 4.3,
+      completionRate: 88,
+      earningsVolatility: 0.28,
+      tenureMonths: 10,
+      paymentReliability: 75,
+      cancellationRate: 7,
+      upiRegularity: 70,
+      savingsBehaviour: 50,
+      incomeDiversification: 8,
+      workAvailability: 70,
+      vehicleAsset: "none",
+    },
+  },
+  {
+    id: "W-1003",
+    name: "Arjun Verma",
+    tag: "Borderline worker",
+    platform: "Synthetic Delivery Platform",
+    monthlyIncome: 16000,
+    signals: {
+      workConsistency: 60,
+      platformRating: 3.8,
+      completionRate: 80,
+      earningsVolatility: 0.42,
+      tenureMonths: 5,
+      paymentReliability: 55,
+      cancellationRate: 9,
+      upiRegularity: 50,
+      savingsBehaviour: 30,
+      incomeDiversification: 0,
+      workAvailability: 55,
+      vehicleAsset: "none",
+    },
+  },
+  {
+    id: "W-1004",
+    name: "Sanjay Yadav",
+    tag: "High-risk worker",
+    platform: "Synthetic Delivery Platform",
+    monthlyIncome: 12000,
+    signals: {
+      workConsistency: 35,
+      platformRating: 3.2,
+      completionRate: 62,
+      earningsVolatility: 0.55,
+      tenureMonths: 2,
+      paymentReliability: 30,
+      cancellationRate: 18,
+      upiRegularity: 25,
+      savingsBehaviour: 10,
+      incomeDiversification: 0,
+      workAvailability: 30,
+      vehicleAsset: "none",
+    },
+  },
+];
+
+window.WORKERS = WORKERS;
