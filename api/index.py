@@ -1,5 +1,5 @@
 """
-TrustScore API — FastAPI backend.
+Aegis API — FastAPI backend.
 
 This is the real, deployed backend for the prototype. It is the single
 source of truth for scoring math, loan policy, attestation checks, and
@@ -109,8 +109,10 @@ class TrustScoreRequest(BaseModel):
 
 
 def score_band(total: float):
-    if total >= 80:
+    if total >= 90:
         return "STRONG", "Best rate / highest starter cap"
+    if total >= 75:
+        return "GOOD", "Good rate / strong starter cap"
     if total >= 60:
         return "STANDARD", "Standard rate / moderate starter cap"
     if total >= 40:
@@ -154,15 +156,16 @@ def calculate_trust_score(body: TrustScoreRequest):
 # ----------------------------------------------------------------------
 
 LOAN_POLICY = {
-    "STRONG":   {"pct": 0.50, "rate": 0.04, "label": "Best available rate (prototype)"},
-    "STANDARD": {"pct": 0.35, "rate": 0.07, "label": "Standard rate (prototype)"},
-    "STARTER":  {"pct": 0.15, "rate": 0.12, "label": "Higher rate, small exposure (prototype)"},
+    "STRONG":   {"pct": 0.50, "rate": 0.14, "label": "14% p.a. cycle fee (prototype)"},
+    "GOOD":     {"pct": 0.40, "rate": 0.18, "label": "18% p.a. cycle fee (prototype)"},
+    "STANDARD": {"pct": 0.30, "rate": 0.24, "label": "24% p.a. cycle fee (prototype)"},
+    "STARTER":  {"pct": 0.15, "rate": 0.28, "label": "28% p.a. cycle fee (prototype)"},
     "DECLINED": {"pct": 0.00, "rate": 0.00, "label": "Not eligible yet"},
 }
 
 
 class LoanRequest(BaseModel):
-    band: Literal["STRONG", "STANDARD", "STARTER", "DECLINED"]
+    band: Literal["STRONG", "GOOD", "STANDARD", "STARTER", "DECLINED"]
     monthlyIncome: float
 
 
@@ -243,7 +246,7 @@ def record_repayment(body: RepaymentRecordRequest):
 @app.post("/api/repayment/simulate-income")
 @app.get("/api/repayment/simulate-income")
 def simulate_income():
-    income = 1200
+    income = 3000
     allocation_rate = 0.10
     allocation = round(income * allocation_rate)
     return {
