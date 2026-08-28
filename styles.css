@@ -68,7 +68,10 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   background: var(--surface); color: var(--text); border: 1px solid var(--border);
 }
 .pill-btn:hover { border-color: var(--cyan); }
+.pill-btn:active { transform: scale(0.96); }
+.pill-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .pill-btn.primary { background: linear-gradient(135deg, var(--violet), var(--cyan)); color: #060810; border: none; }
+.pill-btn.primary:active { transform: scale(0.96); }
 
 .stepper {
   display: flex; gap: 4px; overflow-x: auto; padding: 10px 28px;
@@ -155,6 +158,10 @@ main { max-width: 1080px; margin: 0 auto; padding: 40px 28px 100px; }
 .radial-label .num { font-family: var(--font-mono); font-size: 44px; font-weight: 700; }
 .radial-label .den { color: var(--text-muted); font-size: 13px; }
 .band-chip { display: inline-block; margin-top: 10px; padding: 6px 14px; border-radius: 100px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.05em; }
+.band-strong { background: rgba(46,217,163,0.15); color: var(--emerald); }
+.band-standard { background: rgba(52,217,230,0.15); color: var(--cyan); }
+.band-starter { background: rgba(242,169,59,0.15); color: var(--amber); }
+.band-declined { background: rgba(241,76,76,0.15); color: var(--red); }
 
 .signal-bar-row { margin-bottom: 12px; }
 .signal-bar-row .top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
@@ -237,3 +244,9 @@ footer { text-align: center; padding: 30px; color: var(--text-dim); font-size: 1
 }
 .field input:focus, .field select:focus { outline: 2px solid var(--cyan); outline-offset: 1px; }
 @media (max-width: 720px) { .field-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- rule list ---------- */
+.rule-list { display: flex; flex-direction: column; gap: 10px; }
+.rule-item { padding: 12px 14px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 10px; }
+.rule-item .rule-title { font-weight: 700; font-size: 13.5px; margin-bottom: 4px; }
+.rule-item .rule-desc { color: var(--text-muted); font-size: 12.5px; line-height: 1.5; }
