@@ -4,6 +4,7 @@
  * Deterministic: same worker always produces the same TrustScore.
  */
 const WORKERS = [
+  { id:"W-1000", name:"Ramesh", tag:"Zomato Rider · default", platform:"Synthetic Zomato Rider Profile", monthlyIncome:26000, signals:{workConsistency:86,platformRating:4.5,completionRate:93,earningsVolatility:.20,tenureMonths:16,paymentReliability:84,cancellationRate:5,upiRegularity:82,savingsBehaviour:65,incomeDiversification:10,workAvailability:82,vehicleAsset:"financed"} },
   {
     id: "W-1001",
     name: "Rahul Kumar",
