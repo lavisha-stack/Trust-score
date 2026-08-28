@@ -1,0 +1,48 @@
+name: Finish TrustScore prototype
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/workflows/finish-prototype.yml'
+permissions:
+  contents: write
+jobs:
+  finish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply unfinished prototype fixes
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          p=Path('app.js'); s=p.read_text(encoding='utf-8')
+          old=re.compile(r"async function recordRepayment\(k\)\{.*?\}\nfunction renderLadder",re.S)
+          new=r'''async function recordRepayment(k){if(!state.loan||state.loan.status!=='ACTIVE'){toast(lang==='hi'?'पहले लोन स्वीकार करें।':'Accept the simulated loan first.','error');return}const minimum=Math.min(Math.round(state.repayment.original*.10),state.repayment.original);if(k==='ON_TIME'){if(state.repayment.paid<minimum){state.repayment.state='PARTIAL';state.repayment.performance=7;toast(lang==='hi'?`Day 30 के लिए कम से कम ${fmt(minimum)} चुकाना बाकी है। अभी ${fmt(state.repayment.paid)} चुकाया गया है।`:`At least ${fmt(minimum)} must be repaid by Day 30. ${fmt(state.repayment.paid)} has been repaid so far.`,'error')}else{state.repayment.state='ON_TIME';state.repayment.performance=15;state.ladderStage=Math.max(state.ladderStage,2);toast(lang==='hi'?'न्यूनतम समय पर भुगतान पूरा हुआ।':'Minimum on-time repayment requirement met.','success')}}else if(k==='MINOR_DELAY'){state.repayment.state='MINOR_DELAY';state.repayment.performance=11;state.ladderStage=Math.max(state.ladderStage,2);toast(lang==='hi'?'थोड़ी देरी दर्ज हुई।':'Minor delay recorded.')}else{state.repayment.state='OVERDUE';state.repayment.performance=3;state.ladderStage=5;state.escalationIndex=1;toast(lang==='hi'?'Day 45: भुगतान अभी बाकी है।':'Day 45: repayment remains outstanding.','error')}renderLoan();renderRepay();renderLadder();renderRecovery()}
+function renderLadder'''
+          s2,n=old.subn(new,s,1)
+          if n!=1: raise SystemExit('repayment function not found; no changes made')
+          s=s2
+          old_demo=re.compile(r"async function demo\(\)\{.*?\}\nfunction init",re.S)
+          new_demo=r'''async function demo(){toast(lang==='hi'?'हैकाथॉन डेमो शुरू हो रहा है…':'Running hackathon demo…');const wait=ms=>new Promise(r=>setTimeout(r,ms));await selectWorker(WORKERS[0]);for(const id of ['worker','verify']){$('#screen-'+id).scrollIntoView({behavior:'smooth'});await wait(2200)}await attest(true);await wait(2500);for(const id of ['score','compare','loan']){$('#screen-'+id).scrollIntoView({behavior:'smooth'});await wait(2600)}if(state.loan?.eligible)$('#btn-accept-loan').click();await wait(2200);$('#screen-repay').scrollIntoView({behavior:'smooth'});await wait(2200);await simulatePayout();await wait(2200);await recordRepayment('ON_TIME');await wait(2200);$('#screen-ladder').scrollIntoView({behavior:'smooth'});await wait(2400);$('#screen-recovery').scrollIntoView({behavior:'smooth'});await wait(2400);$('#screen-methodology').scrollIntoView({behavior:'smooth'});await wait(2400);toast(lang==='hi'?'डेमो पूरा हुआ।':'Demo complete.','success')}
+function init'''
+          s2,n=old_demo.subn(new_demo,s,1)
+          if n!=1: raise SystemExit('demo function not found; no changes made')
+          p.write_text(s2,encoding='utf-8')
+          h=Path('index.html'); html=h.read_text(encoding='utf-8')
+          marker='<div class="disclaimer">Prototype policy. Loan amount, rate and repayment target are illustrative and not empirically validated underwriting rules.</div>'
+          addition=marker+'''<div class="card" style="margin-top:14px;padding:14px;overflow-x:auto;"><h4 style="margin:0 0 8px;">Score → starter credit policy</h4><table class="sig-table"><thead><tr><th>Score</th><th>Band</th><th>Loan as % of income</th></tr></thead><tbody><tr><td>80–100</td><td>Strong</td><td>50%</td></tr><tr><td>60–79</td><td>Standard</td><td>35%</td></tr><tr><td>40–59</td><td>Starter</td><td>15%</td></tr><tr><td>&lt;40</td><td>Declined</td><td>0%</td></tr></tbody></table><div class="disclaimer" style="margin-top:10px;">Prototype policy: these bands and percentages are our hackathon assumptions, not validated lending rules.</div></div>'''
+          if 'Score → starter credit policy' not in html:
+            if marker not in html: raise SystemExit('loan marker not found; no changes made')
+            html=html.replace(marker,addition,1)
+          h.write_text(html,encoding='utf-8')
+      - name: Commit fixes
+        run: |
+          git config user.name 'TrustScore Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Finish repayment logic and demo flow'
+          git push
