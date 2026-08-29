@@ -1,4 +1,4 @@
-# TrustScore — Alternative Credit Scoring for Gig Workers
+# Aegis — Alternative Credit Scoring for Gig Workers
 
 Hackathon prototype (Build $ Bank, Track 1, Problem 1). Converts 12 behavioral
 and platform signals into a deterministic, explainable 100-point credit score
