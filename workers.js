@@ -91,6 +91,27 @@ const WORKERS = [
   },
 ];
 
-
 window.WORKERS = WORKERS;
- 
+
+// Use the supplied TrustScore shield logo in the existing header without changing the app's layout.
+(function applyTrustScoreLogo(){
+  function setLogo(){
+    const mark = document.querySelector('.brand-mark');
+    if (!mark || mark.dataset.logoApplied === 'true') return;
+    const img = document.createElement('img');
+    img.src = '/trustscore-logo.webp';
+    img.alt = 'TrustScore logo';
+    img.width = 32;
+    img.height = 37;
+    img.style.width = '32px';
+    img.style.height = '37px';
+    img.style.objectFit = 'contain';
+    img.style.display = 'block';
+    img.style.borderRadius = '0';
+    mark.textContent = '';
+    mark.appendChild(img);
+    mark.dataset.logoApplied = 'true';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setLogo);
+  else setLogo();
+})();
