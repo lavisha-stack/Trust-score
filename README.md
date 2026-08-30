@@ -4,7 +4,7 @@ Hackathon prototype (Build $ Bank, Track 1, Problem 1). Converts 12 behavioral
 and platform signals into a deterministic, explainable 100-point credit score
 for gig delivery workers with income but no traditional credit history.
 
-**Live demo:** https://trustscore-lavisha2649.vercel.app
+**Live demo:** https://aegis-lavisha2649.vercel.app
 
 ## Stack
 - Frontend: vanilla HTML/CSS/JS (single-page, scroll-based navigation)
