@@ -1,117 +1,13 @@
-/**
- * Synthetic worker records for the demo. Not scraped, not real
- * platform data — clearly labeled as synthetic throughout the UI.
- * Deterministic: same worker always produces the same TrustScore.
- */
 const WORKERS = [
   { id:"W-1000", name:"Ramesh", tag:"Demo delivery-worker profile", platform:"Synthetic demo profile — not connected to Zomato", monthlyIncome:26000, signals:{workConsistency:86,platformRating:4.5,completionRate:93,earningsVolatility:.20,tenureMonths:16,paymentReliability:84,cancellationRate:5,upiRegularity:82,savingsBehaviour:65,incomeDiversification:10,workAvailability:82,vehicleAsset:"financed"} },
-  {
-    id: "W-1001",
-    name: "Rahul Kumar",
-    tag: "Strong worker",
-    platform: "Synthetic Delivery Platform",
-    monthlyIncome: 28000,
-    signals: {
-      workConsistency: 92,
-      platformRating: 4.8,
-      completionRate: 96,
-      earningsVolatility: 0.15,
-      tenureMonths: 18,
-      paymentReliability: 92,
-      cancellationRate: 4,
-      upiRegularity: 90,
-      savingsBehaviour: 75,
-      incomeDiversification: 18,
-      workAvailability: 88,
-      vehicleAsset: "financed",
-    },
-  },
-  {
-    id: "W-1002",
-    name: "Priya Nair",
-    tag: "Balanced worker",
-    platform: "Synthetic Delivery Platform",
-    monthlyIncome: 22000,
-    signals: {
-      workConsistency: 78,
-      platformRating: 4.3,
-      completionRate: 88,
-      earningsVolatility: 0.28,
-      tenureMonths: 10,
-      paymentReliability: 75,
-      cancellationRate: 7,
-      upiRegularity: 70,
-      savingsBehaviour: 50,
-      incomeDiversification: 8,
-      workAvailability: 70,
-      vehicleAsset: "none",
-    },
-  },
-  {
-    id: "W-1003",
-    name: "Arjun Verma",
-    tag: "Borderline worker",
-    platform: "Synthetic Delivery Platform",
-    monthlyIncome: 16000,
-    signals: {
-      workConsistency: 60,
-      platformRating: 3.8,
-      completionRate: 80,
-      earningsVolatility: 0.42,
-      tenureMonths: 5,
-      paymentReliability: 55,
-      cancellationRate: 9,
-      upiRegularity: 50,
-      savingsBehaviour: 30,
-      incomeDiversification: 0,
-      workAvailability: 55,
-      vehicleAsset: "none",
-    },
-  },
-  {
-    id: "W-1004",
-    name: "Sanjay Yadav",
-    tag: "High-risk worker",
-    platform: "Synthetic Delivery Platform",
-    monthlyIncome: 12000,
-    signals: {
-      workConsistency: 35,
-      platformRating: 3.2,
-      completionRate: 62,
-      earningsVolatility: 0.55,
-      tenureMonths: 2,
-      paymentReliability: 30,
-      cancellationRate: 18,
-      upiRegularity: 25,
-      savingsBehaviour: 10,
-      incomeDiversification: 0,
-      workAvailability: 30,
-      vehicleAsset: "none",
-    },
-  },
+  { id:"W-1001", name:"Rahul Kumar", tag:"Strong worker", platform:"Synthetic Delivery Platform", monthlyIncome:28000, signals:{workConsistency:92,platformRating:4.8,completionRate:96,earningsVolatility:.15,tenureMonths:18,paymentReliability:92,cancellationRate:4,upiRegularity:90,savingsBehaviour:75,incomeDiversification:18,workAvailability:88,vehicleAsset:"financed"} },
+  { id:"W-1002", name:"Priya Nair", tag:"Balanced worker", platform:"Synthetic Delivery Platform", monthlyIncome:22000, signals:{workConsistency:78,platformRating:4.3,completionRate:88,earningsVolatility:.28,tenureMonths:10,paymentReliability:75,cancellationRate:7,upiRegularity:70,savingsBehaviour:50,incomeDiversification:8,workAvailability:70,vehicleAsset:"none"} },
+  { id:"W-1003", name:"Arjun Verma", tag:"Borderline worker", platform:"Synthetic Delivery Platform", monthlyIncome:16000, signals:{workConsistency:60,platformRating:3.8,completionRate:80,earningsVolatility:.42,tenureMonths:5,paymentReliability:55,cancellationRate:9,upiRegularity:50,savingsBehaviour:30,incomeDiversification:0,workAvailability:55,vehicleAsset:"none"} },
+  { id:"W-1004", name:"Sanjay Yadav", tag:"High-risk worker", platform:"Synthetic Delivery Platform", monthlyIncome:12000, signals:{workConsistency:35,platformRating:3.2,completionRate:62,earningsVolatility:.55,tenureMonths:2,paymentReliability:30,cancellationRate:18,upiRegularity:25,savingsBehaviour:10,incomeDiversification:0,workAvailability:30,vehicleAsset:"none"} }
 ];
+window.WORKERS=WORKERS;
 
-window.WORKERS = WORKERS;
-
-// Use the supplied TrustScore shield logo in the existing header without changing the app's layout.
-(function applyTrustScoreLogo(){
-  function setLogo(){
-    const mark = document.querySelector('.brand-mark');
-    if (!mark || mark.dataset.logoApplied === 'true') return;
-    const img = document.createElement('img');
-    img.src = '/trustscore-logo.webp';
-    img.alt = 'TrustScore logo';
-    img.width = 32;
-    img.height = 37;
-    img.style.width = '32px';
-    img.style.height = '37px';
-    img.style.objectFit = 'contain';
-    img.style.display = 'block';
-    img.style.borderRadius = '0';
-    mark.textContent = '';
-    mark.appendChild(img);
-    mark.dataset.logoApplied = 'true';
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setLogo);
-  else setLogo();
+(function(){
+  function setLogo(){const mark=document.querySelector('.brand-mark');if(!mark||mark.dataset.logoApplied==='true')return;const img=document.createElement('img');img.src='/trustscore-logo.webp';img.alt='TrustScore logo';img.width=32;img.height=37;img.style.width='32px';img.style.height='37px';img.style.objectFit='contain';img.style.display='block';img.style.borderRadius='0';mark.textContent='';mark.appendChild(img);mark.dataset.logoApplied='true';}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setLogo);else setLogo();
 })();
