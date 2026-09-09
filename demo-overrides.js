@@ -33,7 +33,12 @@
 
   function highlightPrototypePolicy() {
     const note = $('#screen-loan .disclaimer');
-    if (note) note.classList.add('prototype-policy-highlight');
+    if (note) {
+      note.classList.add('prototype-policy-highlight');
+      note.style.border = '1px solid rgba(124,108,246,.45)';
+      note.style.background = 'rgba(124,108,246,.08)';
+      note.style.fontWeight = '600';
+    }
   }
 
   function updateRepaymentRailCopy() {
